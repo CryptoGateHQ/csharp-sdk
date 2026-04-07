@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CryptoGate.SDK</AssemblyName>
+    <RootNamespace>CryptoGate</RootNamespace>
+    <Version>1.0.0</Version>
+    <Authors>CryptoGate</Authors>
+    <Description>Official .NET SDK for the CryptoGate payment API</Description>
+    <PackageTags>cryptogate;crypto;bitcoin;payments;cryptocurrency;no-kyc</PackageTags>
+    <PackageProjectUrl>https://cryptogate.live</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/CryptoGateHQ/csharp-sdk</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>
