@@ -11,7 +11,7 @@
     <PackageTags>cryptogate;crypto;bitcoin;payments;cryptocurrency;no-kyc</PackageTags>
     <PackageProjectUrl>https://cryptogate.live</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/CryptoGateHQ/csharp-sdk</RepositoryUrl>
+    <RepositoryUrl>https://github.com/CryptoGateHQHQ/csharp-sdk</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
