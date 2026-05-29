@@ -95,6 +95,10 @@ public class CryptoGateClient : IDisposable
     public Task<CryptosResult> GetSupportedCryptosAsync(CancellationToken ct = default)
         => GetAsync<CryptosResult>("/cryptos/list", ct);
 
+    /// <summary>Returns only the cryptos this merchant has wallets configured for. Requires pk_live_.</summary>
+    public Task<CryptosResult> GetMerchantCryptosAsync(CancellationToken ct = default)
+        => GetAsync<CryptosResult>("/merchant/cryptos", ct);
+
     public Task<RatesResult> GetExchangeRatesAsync(CancellationToken ct = default)
         => GetAsync<RatesResult>("/prices", ct);
 
