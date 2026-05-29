@@ -30,15 +30,48 @@ public class CryptoGateClient : IDisposable
 
     // ── Transactions ──────────────────────────────────────────────────────────
 
-    /// <param name="currency">Fiat currency for the amount. Supported: USD (default), PLN, EUR, GBP.</param>
-    public Task<Transaction> CreateTransactionAsync(string crypto, decimal amount,
-        string currency = "USD", CancellationToken ct = default)
+    /// <param name="currency">Fiat currency. Supported: USD (default), PLN, EUR, GBP.</param>
+    /// <param name="metadata">Free-form key/value pairs returned in every webhook. Max 20 keys, string values, 4 KB.</param>
+    /// <param name="customerEmail">Pre-fill email on the hosted payment page.</param>
+    /// <param name="successUrl">Redirect URL after confirmed payment.</param>
+    /// <param name="cancelUrl">Redirect URL after expiry/cancellation.</param>
+    public Task<Transaction> CreateTransactionAsync(
+        string crypto, decimal amount, string currency = "USD",
+        Dictionary<string, string>? metadata = null,
+        string? customerEmail = null, string? successUrl = null, string? cancelUrl = null,
+        CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(crypto)) throw new ValidationException("crypto is required");
         if (amount == 0)                  throw new ValidationException("amount is required");
 
-        return PostAsync<Transaction>("/transactions/create",
-            new { crypto, amount, currency }, ct);
+        return PostAsync<Transaction>("/transactions/create", new {
+            crypto, amount, currency,
+            metadata,
+            customer_email = customerEmail,
+            success_url    = successUrl,
+            cancel_url     = cancelUrl,
+        }, ct);
+    }
+
+    /// <summary>Create a detailed transaction with line items (Pro/Enterprise plans only).</summary>
+    /// <param name="orderId">Required. Your internal order ID, returned in every webhook.</param>
+    public Task<Transaction> CreateDetailedTransactionAsync(
+        string crypto, string orderId, IEnumerable<LineItem> items,
+        string currency = "USD",
+        Dictionary<string, string>? metadata = null,
+        string? customerEmail = null, string? successUrl = null, string? cancelUrl = null,
+        CancellationToken ct = default)
+    {
+        if (string.IsNullOrEmpty(crypto))  throw new ValidationException("crypto is required");
+        if (string.IsNullOrEmpty(orderId)) throw new ValidationException("orderId is required");
+
+        return PostAsync<Transaction>("/transactions/create-detailed", new {
+            crypto, order_id = orderId, items, currency,
+            metadata,
+            customer_email = customerEmail,
+            success_url    = successUrl,
+            cancel_url     = cancelUrl,
+        }, ct);
     }
 
     public Task<Transaction> GetTransactionAsync(string txid, CancellationToken ct = default)

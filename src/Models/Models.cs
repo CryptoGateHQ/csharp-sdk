@@ -13,6 +13,12 @@ public record Payment(
     [property: JsonPropertyName("status")]                  string Status
 );
 
+public record LineItem(
+    [property: JsonPropertyName("name")]      string Name,
+    [property: JsonPropertyName("quantity")]  int    Quantity,
+    [property: JsonPropertyName("price")]     decimal Price
+);
+
 public record Transaction(
     [property: JsonPropertyName("txid")]              string Txid,
     [property: JsonPropertyName("status")]            string Status,
@@ -22,6 +28,8 @@ public record Transaction(
     [property: JsonPropertyName("amount_paid")]       decimal AmountPaid,
     [property: JsonPropertyName("amount_remaining")]  decimal AmountRemaining,
     [property: JsonPropertyName("currency")]          string Currency,
+    [property: JsonPropertyName("order_id")]          string? OrderId,
+    [property: JsonPropertyName("metadata")]          Dictionary<string, string>? Metadata,
     [property: JsonPropertyName("payment")]           Payment Payment,
     [property: JsonPropertyName("payment_url")]       string PaymentUrl,
     [property: JsonPropertyName("expires_at")]        string ExpiresAt,
