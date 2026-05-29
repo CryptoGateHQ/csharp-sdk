@@ -30,14 +30,15 @@ public class CryptoGateClient : IDisposable
 
     // ── Transactions ──────────────────────────────────────────────────────────
 
+    /// <param name="currency">Fiat currency for the amount. Supported: USD (default), PLN, EUR, GBP.</param>
     public Task<Transaction> CreateTransactionAsync(string crypto, decimal amount,
-        CancellationToken ct = default)
+        string currency = "USD", CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(crypto)) throw new ValidationException("crypto is required");
         if (amount == 0)                  throw new ValidationException("amount is required");
 
         return PostAsync<Transaction>("/transactions/create",
-            new { crypto, amount, currency = "USD" }, ct);
+            new { crypto, amount, currency }, ct);
     }
 
     public Task<Transaction> GetTransactionAsync(string txid, CancellationToken ct = default)

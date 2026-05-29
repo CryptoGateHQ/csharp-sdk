@@ -16,7 +16,9 @@ public record Payment(
 public record Transaction(
     [property: JsonPropertyName("txid")]              string Txid,
     [property: JsonPropertyName("status")]            string Status,
+    [property: JsonPropertyName("amount_fiat")]       decimal AmountFiat,
     [property: JsonPropertyName("amount_usd")]        decimal AmountUsd,
+    [property: JsonPropertyName("fiat_to_usd_rate")]  decimal FiatToUsdRate,
     [property: JsonPropertyName("amount_paid")]       decimal AmountPaid,
     [property: JsonPropertyName("amount_remaining")]  decimal AmountRemaining,
     [property: JsonPropertyName("currency")]          string Currency,
@@ -52,7 +54,7 @@ public record CryptosResult(
 );
 
 public record RatesResult(
-    [property: JsonPropertyName("rates")]       Dictionary<string, decimal> Rates,
-    [property: JsonPropertyName("currency")]    string Currency,
+    [property: JsonPropertyName("crypto")]      Dictionary<string, decimal> Crypto,
+    [property: JsonPropertyName("fiat")]        Dictionary<string, decimal> Fiat,
     [property: JsonPropertyName("fetched_at")]  string FetchedAt
 );
